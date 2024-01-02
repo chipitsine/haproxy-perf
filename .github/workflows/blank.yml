@@ -44,10 +44,10 @@ jobs:
       - name: record perf
         run: |
           cd haproxy
-          perf record -g ./haproxy -f .github/h2spec.config -d &
+          sudo perf record -g ./haproxy -f .github/h2spec.config -d &
           sleep 5
           ./h2spec -Svtk -h 127.0.0.1 -p 8443
-          killall -SIGINT haproxy
+          sudo killall -SIGINT haproxy
           sleep 5
           wget https://phabricator.kde.org/file/download/wjpg6dvpl4hnan54uawb/PHID-FILE-fznujhizsstxg6toixmd/converters_perf2calltree_python3.py
           perf script -s converters_perf2calltree_python3.py > perf.out
