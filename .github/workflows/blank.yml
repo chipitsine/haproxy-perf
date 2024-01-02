@@ -24,5 +24,14 @@ jobs:
           cd haproxy
           ${{ github.event.inputs.ssl_flavour_and_version }} scripts/build-ssl.sh
 
+      - name: build haproxy
+        run: |
+          make all ERR=1 \
+          TARGET=linux-glibc \
+          CC=gcc \
+          USE_OPENSSL=1 \
+          SSL_LIB=${HOME}/opt/lib SSL_INC=${HOME}/opt/include ADDLIB="-Wl,-rpath,$HOME/opt/lib/"
+
+
 
 
